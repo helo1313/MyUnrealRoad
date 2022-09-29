@@ -15,6 +15,7 @@ ACar::ACar()
 void ACar::BeginPlay()
 {
 	Super::BeginPlay();
+	Speed = 100.f;
 	
 }
 
@@ -23,5 +24,16 @@ void ACar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	MoveCar(DeltaTime);
+
+}
+
+// Moves car forward
+void ACar::MoveCar(float DeltaTime)
+{
+	FVector CarLocation = this->GetActorLocation();
+	FVector CarForwardVector = this->GetActorForwardVector();
+	FVector NewLocation = CarLocation + (CarForwardVector * (Speed * DeltaTime));
+	this->SetActorLocation(NewLocation);
 }
 

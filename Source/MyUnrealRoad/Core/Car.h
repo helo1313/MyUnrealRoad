@@ -23,4 +23,16 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Current car speed
+	UPROPERTY(BlueprintReadOnly, Category = "Speed")
+	float Speed = 0.f;
+
+	// Maximum possible car speed 
+	UPROPERTY(BlueprintReadOnly, Category = "Speed")
+	float MaxSpeed = 0.f;
+
+private:
+	// Moves car forward
+	void MoveCar(float DeltaTime);
+
 };
