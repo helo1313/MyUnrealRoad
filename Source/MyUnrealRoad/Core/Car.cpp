@@ -48,12 +48,18 @@ void ACar::Tick(float DeltaTime)
 // Triggered by spawner when car is pulled to queue
 void ACar::OnCarPushed()
 {
+	SetActorHiddenInGame(true);
+	SetActorLocation(FVector(0,0,0));
+	SetActorTickEnabled(false);
 }
 
 // Triggered by spawner when car is pulled to world
 void ACar::OnCarPulled()
 {
 	MaxSpeed = FMath::RandRange(MinimalSpeedRange, MaximumSpeedRange);
+	Speed = 100.f;
+	SetActorHiddenInGame(false);
+	SetActorTickEnabled(true);
 }
 
 void ACar::CalculateSpeedChangeStrength()
