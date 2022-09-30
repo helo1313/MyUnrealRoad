@@ -15,10 +15,12 @@ class MYUNREALROAD_API ASpawner : public AActor
 public:
 	// Sets default values for this actor's properties
 	ASpawner();
-	
+
+	// Car class to spawn
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=ObjectPooling)
 	TSubclassOf<ACar> CarClass;
 
+	// Last car that was pulled from list
 	UPROPERTY(BlueprintReadOnly, Category=ObjectPooling)
 	ACar* LastPulledCar;
 
