@@ -9,26 +9,22 @@
 UENUM()
 enum EAccelerationMode
 {
-	EmergencyBraking    UMETA(DisplayName = "EmergencyBraking"),
-	SlowDown			UMETA(DisplayName = "SlowDown"),
-	Idle				UMETA(DisplayName = "Idle"),
-	SpeedUp				UMETA(DisplayName = "SpeedUp"),
-  };
+	EmergencyBraking UMETA(DisplayName = "EmergencyBraking"),
+	SlowDown UMETA(DisplayName = "SlowDown"),
+	Idle UMETA(DisplayName = "Idle"),
+	SpeedUp UMETA(DisplayName = "SpeedUp"),
+};
 
 UCLASS()
 class MYUNREALROAD_API ACar : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ACar();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -52,7 +48,7 @@ public:
 	// Distance that car will try to keep from other car
 	UPROPERTY(BlueprintReadOnly, Category = "Speed")
 	float SafeDistance = 600.f;
-	
+
 	// Current car speed
 	UPROPERTY(BlueprintReadOnly, Category = "Speed")
 	float Speed = 0.f;
@@ -64,14 +60,13 @@ public:
 private:
 	// Calculate speed change strength base on minimal and maximal speed range
 	void CalculateSpeedChangeStrength();
-	
+
 	// Moves car forward
 	void MoveCar(float DeltaTime);
 
 	// Calculates if car should speed up or break down
-	EAccelerationMode CalculateCarBehavior();
+	EAccelerationMode CalculateCarBehavior() const;
 
 	// Change car speed base on SpeedChangeValue
-	void ChangeCarSpeed(float SpeedChangeValue ,float DeltaTime);
-	
+	void ChangeCarSpeed(float SpeedChangeValue, float DeltaTime);
 };

@@ -1,9 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Spawner.h"
-
-#include <string>
 
 // Sets default values
 ASpawner::ASpawner()
@@ -11,31 +8,24 @@ ASpawner::ASpawner()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-// Called when the game starts or when spawned
-void ASpawner::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
-// Called every frame
-void ASpawner::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 // Pull Car from pool to world
 void ASpawner::PullCar()
 {
-	if(CarPool.Num() != 0){
-		ACar* CarToPull = CarPool[0];
-		CarToPull->OnCarPulled();
-		CarToPull->SetActorLocation(this->GetActorLocation());
-		CarPool.Remove(CarToPull);
-		LastPulledCar = CarToPull;
-	}
-	else{
+	if (CarPool.Num() == 0)
+	{
 		SpawnCar();
+		return;
 	}
+	
+	ACar* CarToPull = CarPool[0];
+	if (!IsValid(CarToPull))
+	{
+		return;
+	}
+	CarToPull->OnCarPulled();
+	CarToPull->SetActorLocation(this->GetActorLocation());
+	CarPool.Remove(CarToPull);
+	LastPulledCar = CarToPull;
 }
 
 // Push car from world to pool
@@ -49,7 +39,10 @@ void ASpawner::PushCar(ACar* CarToPush)
 void ASpawner::SpawnCar()
 {
 	ACar* SpawnedCar = Cast<ACar>(GetWorld()->SpawnActor(CarClass));
+	if (!IsValid(SpawnedCar))
+	{
+		return;
+	}
 	PushCar(SpawnedCar);
 	PullCar();
 }
-

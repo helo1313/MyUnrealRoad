@@ -11,20 +11,12 @@ UCLASS()
 class MYUNREALROAD_API ASpawner : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASpawner();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly, Category=ObjectPooling)
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=ObjectPooling)
 	TSubclassOf<ACar> CarClass;
 
 	UPROPERTY(BlueprintReadOnly, Category=ObjectPooling)
@@ -44,8 +36,8 @@ private:
 
 	// Spawns additional car
 	void SpawnCar();
-	
-	//Main car pool 
-	TArray<ACar*> CarPool; 
 
+	//Main car pool
+	UPROPERTY()
+	TArray<ACar*> CarPool;
 };
